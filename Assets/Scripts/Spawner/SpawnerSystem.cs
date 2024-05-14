@@ -31,6 +31,7 @@ namespace GBH
             {
                 ElapsedTime = SystemAPI.Time.ElapsedTime,
                 Ecb = ecb,
+                PlayerPos = playerPos,
                 RandomSeed = randomSeed,
             }.ScheduleParallel();
         }
