@@ -1,26 +1,29 @@
 using UnityEngine;
 using Unity.Entities;
 
-
-public class RotateSpeedAuthoring : MonoBehaviour
+namespace GBH
 {
-    public float value;
-    public float delay;
 
-    private class Baker : Baker<RotateSpeedAuthoring>
+    public class RotateSpeedAuthoring : MonoBehaviour
     {
-        public override void Bake(RotateSpeedAuthoring authoring)
+        public float value;
+        public float delay;
+
+        private class Baker : Baker<RotateSpeedAuthoring>
         {
-            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new RotateSpeed { Timer = 0, Delay = authoring.delay, Value = authoring.value,  });
+            public override void Bake(RotateSpeedAuthoring authoring)
+            {
+                Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+                AddComponent(entity, new RotateSpeed { Timer = 0, Delay = authoring.delay, Value = authoring.value, });
+            }
         }
     }
-}
 
-public struct RotateSpeed : IComponentData
-{
-    public float Timer;
-    public float Delay;
-    public float Value;
-}
+    public struct RotateSpeed : IComponentData
+    {
+        public float Timer;
+        public float Delay;
+        public float Value;
+    }
 
+}

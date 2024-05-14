@@ -2,37 +2,40 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-[UpdateInGroup(typeof(InitializationSystemGroup), OrderLast = true)]
-public partial class GetPlayerInputSystem : SystemBase
+namespace GBH
 {
-    private MovementActions _movementActions;
-    private Entity _playerEntity;
 
-    protected override void OnCreate()
+    public partial class GetPlayerInputSystem : SystemBase
     {
-        RequireForUpdate<PlayerTag>();
-        RequireForUpdate<PlayerMoveInput>();
-        RequireForUpdate<PlayerPosition>();
+        private MovementActions _movementActions;
+        private Entity _playerEntity;
 
-        _movementActions = new MovementActions();
-    }
+        protected override void OnCreate()
+        {
+            RequireForUpdate<PlayerTag>();
+            RequireForUpdate<PlayerMoveInput>();
+            RequireForUpdate<PlayerPosition>();
 
-    protected override void OnStartRunning()
-    {
-        _movementActions.Enable();
-        _playerEntity = SystemAPI.GetSingletonEntity<PlayerTag>();
-    }
+            _movementActions = new MovementActions();
+        }
 
-    protected override void OnUpdate()
-    {
-        var curMoveInput = _movementActions.Map.PlayerMovement.ReadValue<Vector2>();
-        SystemAPI.SetSingleton(new PlayerMoveInput { Value = curMoveInput });
-        SystemAPI.SetSingleton(new PlayerPosition { Value = SystemAPI.GetComponent<LocalTransform>(_playerEntity).Position });
-    }
+        protected override void OnStartRunning()
+        {
+            _movementActions.Enable();
+            _playerEntity = SystemAPI.GetSingletonEntity<PlayerTag>();
+        }
 
-    protected override void OnStopRunning()
-    {
-        _movementActions?.Disable();
-        _playerEntity = Entity.Null;
+        protected override void OnUpdate()
+        {
+            var curMoveInput = _movementActions.Map.PlayerMovement.ReadValue<Vector2>();
+            SystemAPI.SetSingleton(new PlayerMoveInput { Value = curMoveInput });
+            SystemAPI.SetSingleton(new PlayerPosition { Value = SystemAPI.GetComponent<LocalTransform>(_playerEntity).Position });
+        }
+
+        protected override void OnStopRunning()
+        {
+            _movementActions?.Disable();
+            _playerEntity = Entity.Null;
+        }
     }
 }

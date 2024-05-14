@@ -2,17 +2,22 @@ using Unity.Entities;
 using UnityEngine;
 
 
-public class PlayerAuthoring : MonoBehaviour
+namespace GBH
 {
 
-    private class Baker : Baker<PlayerAuthoring>
+    public class PlayerAuthoring : MonoBehaviour
     {
-        public override void Bake(PlayerAuthoring authoring)
+
+        private class Baker : Baker<PlayerAuthoring>
         {
-            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent<PlayerTag>(entity);
+            public override void Bake(PlayerAuthoring authoring)
+            {
+                Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+                AddComponent<PlayerTag>(entity);
+            }
         }
     }
-}
 
-public struct PlayerTag : IComponentData { }
+    public struct PlayerTag : IComponentData { }
+
+}
