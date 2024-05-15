@@ -62,7 +62,7 @@ namespace GBH
                 for (var i = 0; i < spawner.Count; i++)
                 {
                     float3 spawnPos = new float3(0, 0.5f, 0);
-                    var r = 10;
+                    var r = 14;
                     spawnPos.x = PlayerPos.x + r * math.cos(2 * math.PI * (i + rnd) / (spawner.Count + rnd));
                     spawnPos.z = PlayerPos.z + r * math.sin(2 * math.PI * (i + rnd) / (spawner.Count + rnd));
 

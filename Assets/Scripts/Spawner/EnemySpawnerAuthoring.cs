@@ -8,24 +8,26 @@ class SpawnerAuthoring : MonoBehaviour
     public GameObject Prefab;
     public float SpawnRate;
     public int Count;
-}
 
-class SpawnerBaker : Baker<SpawnerAuthoring>
-{
-    public override void Bake(SpawnerAuthoring authoring)
+    class SpawnerBaker : Baker<SpawnerAuthoring>
     {
-        var entity = GetEntity(TransformUsageFlags.None);
-        AddComponent(entity, new EnemySpawner
+        public override void Bake(SpawnerAuthoring authoring)
         {
-            Active = authoring.Active,
-            Prefab = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
-            SpawnPosition = authoring.transform.position,
-            NextSpawnTime = authoring.SpawnRate,
-            SpawnRate = authoring.SpawnRate,
-            Count = authoring.Count,
-        });
+            var entity = GetEntity(TransformUsageFlags.None);
+            AddComponent(entity, new EnemySpawner
+            {
+                Active = authoring.Active,
+                Prefab = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
+                SpawnPosition = authoring.transform.position,
+                NextSpawnTime = authoring.SpawnRate,
+                SpawnRate = authoring.SpawnRate,
+                Count = authoring.Count,
+            });
+        }
     }
 }
+
+
 
 public struct EnemySpawner : IComponentData
 {
