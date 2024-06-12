@@ -2,7 +2,9 @@ using GBH;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
 
 namespace GBH
@@ -32,9 +34,10 @@ namespace GBH
                 PhysicsWorldSingleton physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
                 NativeList<ColliderCastHit> hits = new NativeList<ColliderCastHit>(Allocator.Temp);
 
-                physicsWorld.BoxCast()
             }
 
         }
     }
+
+
 }
